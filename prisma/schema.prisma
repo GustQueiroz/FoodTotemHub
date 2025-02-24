@@ -16,6 +16,7 @@ model Restaurant {
   coverImageUrl String
   menuCategories MenuCategory[]
   products Product[]
+  orders Order[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -37,10 +38,11 @@ model Product {
   price Float
   imageUrl String
   ingredients String[]
-  restaurant Restaurant @relation(fields: [restaurantId], references: [id])
-  restaurantId String
   menuCategory MenuCategory @relation(fields: [menuCategoryId], references: [id])
   menuCategoryId String
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  orders OrderProduct[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -49,7 +51,10 @@ model Order {
   id Int @id @default(autoincrement())
   total Float
   status OrderStatus
+  orderProducts OrderProduct[]
   consumptionMethod ConsumptionMethod
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -64,4 +69,16 @@ enum OrderStatus {
 enum ConsumptionMethod {
   TAKE_AWAY
   DINE_IN
+}
+
+model OrderProduct {
+  id String @id @default(uuid())
+  productId String
+  order Order @relation(fields: [orderId], references: [id])
+  orderId Int
+  quantity Int
+  price Float
+  product Product @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
