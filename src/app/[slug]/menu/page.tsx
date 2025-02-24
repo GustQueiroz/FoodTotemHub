@@ -25,6 +25,13 @@ const RestaurantMenuPage = async ({
     where: {
       slug,
     },
+    include: {
+      menuCategories: {
+        include: {
+          products: true,
+        },
+      },
+    },
   });
 
   if (!restaurant) {
