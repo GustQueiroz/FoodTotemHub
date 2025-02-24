@@ -1,6 +1,6 @@
 "use client";
 
-import { MenuCategory, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { ClockIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -15,12 +15,19 @@ interface RestaurantCategoriesProps {
   }>;
 }
 
+type MenuCategoriesWithProducts = Prisma.MenuCategoryGetPayload<{
+  include: { products: true };
+}>;
+
 const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
-  const [selectedCategory, setSelectedCategory] = useState<MenuCategory>(
+  const [selectedCategory, setSelectedCategory] = useState<MenuCategoriesWithProducts>(
     restaurant.menuCategories[0],
   );
-  const handleCategoryClick = (category: MenuCategory) => {
+  const handleCategoryClick = (category: MenuCategoriesWithProducts) => {
     setSelectedCategory(category);
+  };
+  const getCategoryButtonVariant = (category: MenuCategoriesWithProducts) => {
+    return selectedCategory.id === category.id ? "default" : "secondary";
   };
   return (
     <div className="relative z-50 mt-[-1.5rem] rounded-t-3xl border bg-white">
@@ -48,9 +55,7 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
             <Button
               onClick={() => handleCategoryClick(category)}
               key={category.id}
-              variant={
-                selectedCategory.id === category.id ? "default" : "secondary"
-              }
+              variant={getCategoryButtonVariant(category)}
               size="sm"
               className="rounded-full"
             >
