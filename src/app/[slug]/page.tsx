@@ -1,10 +1,10 @@
+import { ConsumptionMethod } from "@prisma/client";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { db } from "@/lib/prisma";
 
+import ConsumptionMethodOption from "./components/consumption-method-option";
 interface RestaurantPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -34,32 +34,20 @@ const RestaurantPage = async ({ params }: RestaurantPageProps) => {
         </p>
       </div>
       <div className="grid grid-cols-2 pt-14">
-        <Card>
-          <CardContent className="flex flex-col items-center gap-8 py-8">
-            <Image
-              src="/dineIn.png"
-              alt="Para comer aqui"
-              width={78}
-              height={80}
-            />
-            <Button variant="secondary" className="rounded-full">
-              Para comer aqui
-            </Button>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="flex flex-col items-center gap-8 py-8">
-            <Image
-              src="/delivery.png"
-              alt="Para levar"
-              width={78}
-              height={80}
-            />
-            <Button variant="secondary" className="rounded-full">
-              Para levar
-            </Button>
-          </CardContent>
-        </Card>
+        <ConsumptionMethodOption
+          imageUrl="/dineIn.png"
+          imageAlt="Para comer aqui"
+          buttonText="Para comer aqui"
+          slug={slug}
+          option={ConsumptionMethod.DINE_IN}
+        />
+        <ConsumptionMethodOption
+          imageUrl="/delivery.png"
+          imageAlt="Para levar"
+          buttonText="Para levar"
+          slug={slug}
+          option={ConsumptionMethod.TAKE_AWAY}
+        />
       </div>
     </div>
   );
