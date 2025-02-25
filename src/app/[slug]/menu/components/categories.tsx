@@ -7,6 +7,8 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+
+import Products from "./products";
 interface RestaurantCategoriesProps {
   restaurant: Prisma.RestaurantGetPayload<{
     include: {
@@ -65,6 +67,8 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
         </div>
         <ScrollBar orientation="horizontal" className="hidden" />
       </ScrollArea>
+      <h3 className=" font-semibold px-5 pt-5">{selectedCategory.name}</h3>
+      <Products products={selectedCategory.products} />
     </div>
   );
 };
