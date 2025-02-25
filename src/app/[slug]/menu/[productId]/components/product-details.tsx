@@ -1,7 +1,10 @@
+"use client";
+
 import { Prisma } from "@prisma/client"; 
 import { PlusIcon } from "lucide-react";
 import { MinusIcon } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
@@ -10,6 +13,15 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
+    const [quantity, setQuantity] = useState(1);
+    const handleDecreaseQuantity = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
+    }
+    const handleIncreaseQuantity = () => {
+        setQuantity(quantity + 1);
+    }
     return ( 
         <div className="relative z-50 rounded-t-3xl py-5 mt-[-1.5rem] p-5">
             <div className="">
@@ -26,11 +38,11 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 }).format(product.price)}
                 </h3>
                 <div className="flex items-center gap-3 text-center">
-                    <Button variant="outline" size="icon" className="w-8 h-8 rounded-xl">
+                    <Button variant="outline" size="icon" className="w-8 h-8 rounded-xl" onClick={handleDecreaseQuantity}>
                         <MinusIcon />
                     </Button>
-                    <p className="text-sm font-medium w-4">1</p>
-                    <Button variant="destructive" size="icon" className="w-8 h-8 rounded-xl">
+                    <p className="text-sm font-medium w-4">{quantity}</p>
+                    <Button variant="destructive" size="icon" className="w-8 h-8 rounded-xl" onClick={handleIncreaseQuantity}>
                         <PlusIcon />
                     </Button>
                 </div>
