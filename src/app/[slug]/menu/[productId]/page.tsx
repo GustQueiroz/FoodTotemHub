@@ -2,26 +2,23 @@ import { notFound } from "next/navigation";
 
 import { db } from "@/lib/prisma";
 
+import ProductDetails from "./components/product-details";
 import ProductHeader from "./components/product-header";
-
 interface ProductPageProps {
     params: Promise<{ slug: string, productId: string }>;
 }
 
 const ProductPage = async ({ params }: ProductPageProps) => {
 
-    const { slug, productId } = await params;
-    const product = await db.product.findUnique({ where: { id: productId } });
+    const { productId } = await params;
+    const product = await db.product.findUnique({ where: { id: productId }, include: { restaurant: {select: {name: true, avatarImageUrl: true}} } });
     if (!product) {
         return notFound();
     }
     return ( 
         <div className="">
             <ProductHeader product={product} />
-            <h1>{slug}</h1>
-            <h2>{product.name}</h2>
-            <p>{product.description}</p>
-            <p>{product.price}</p>
+            <ProductDetails product={product} />
         </div>
      ); 
 }
