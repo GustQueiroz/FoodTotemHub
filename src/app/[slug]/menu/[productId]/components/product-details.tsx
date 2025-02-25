@@ -1,7 +1,7 @@
 "use client";
 
 import { Prisma } from "@prisma/client"; 
-import { PlusIcon } from "lucide-react";
+import { ChefHatIcon, PlusIcon } from "lucide-react";
 import { MinusIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -47,6 +47,18 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                     </Button>
                 </div>
                 </div>
+                <div className="mt-6 space-y-3">
+                    <h4 className="font-semibold">Sobre</h4>
+                    <p className="text-sm text-muted-foreground">{product.description}</p>
+                </div>
+                <div className="mt-6 space-y-3">
+                    <div className="flex items-center gap-1">  
+                        <ChefHatIcon size={18} />                  
+                        <h4 className="font-semibold">Ingredientes</h4>
+                    </div>
+                    <p className="text-sm text-muted-foreground">{product.ingredients}</p>
+                </div>
+                <Button className="w-full mt-6 rounded-full">Adicionar à sacola</Button>
             </div>
         </div>
      );
