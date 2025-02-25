@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { db } from "@/lib/prisma";
@@ -13,7 +14,10 @@ const ProductPage = async ({ params }: ProductPageProps) => {
         return notFound();
     }
     return ( 
-        <div>
+        <div className="">
+            <div className="relative h-[300px] w-full">
+                <Image src={product.imageUrl} alt={product.name} fill className="object-contain" />
+            </div>
             <h1>{slug}</h1>
             <h2>{product.name}</h2>
             <p>{product.description}</p>
