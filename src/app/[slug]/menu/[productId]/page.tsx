@@ -16,7 +16,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
         return notFound();
     }
     return ( 
-        <div className="">
+        <div className="flex flex-col h-full">
             <ProductHeader product={product} />
             <ProductDetails product={product} />
         </div>

@@ -39,7 +39,7 @@ const RestaurantMenuPage = async ({
   }
 
   return (
-    <div>
+    <div className="">
       <RestaurantHeader restaurant={restaurant} />
       <RestaurantCategories restaurant={restaurant} />
     </div>

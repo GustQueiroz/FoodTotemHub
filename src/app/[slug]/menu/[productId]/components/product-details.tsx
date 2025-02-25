@@ -23,8 +23,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         setQuantity(quantity + 1);
     }
     return ( 
-        <div className="relative z-50 rounded-t-3xl py-5 mt-[-1.5rem] p-5">
-            <div className="">
+        <div className="relative z-50 mt-[-1.5rem] flex flex-auto flex-col rounded-t-3xl p-5">
+            <div className="flex-auto">
                 <div className="flex items-center gap-1.5">
                     <Image src={product.restaurant.avatarImageUrl} alt={product.restaurant.name} width={16} height={16} className="rounded-full" /> 
                 <p className="text-xs text-muted-foreground">{product.restaurant.name}</p>
@@ -58,8 +58,9 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                     </div>
                     <p className="text-sm text-muted-foreground">{product.ingredients}</p>
                 </div>
-                <Button className="w-full mt-6 rounded-full">Adicionar à sacola</Button>
+                
             </div>
+            <Button className="w-full mt-6 rounded-full">Adicionar à sacola</Button>
         </div>
      );
 }
