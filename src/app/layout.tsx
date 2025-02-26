@@ -3,6 +3,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
+import { SheetProvider } from "@/components/providers/sheet-provider";
+
 import { CartProvider } from "./[slug]/menu/context/cart";
 
 const poppins = Poppins({
@@ -23,9 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} ${poppins.className} antialiased`}>
+      <SheetProvider>
         <CartProvider>
           {children}
         </CartProvider>
+      </SheetProvider>
       </body>
     </html>
   );
