@@ -24,7 +24,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     const [products, setProducts] = useState<CartProduct[]>([]);
     const [isOpen, setIsOpen] = useState(false);
 
-    const toggleCart = () => {
+    const togleCart = () => {
         setIsOpen(prev => !prev);
     }
     
@@ -32,7 +32,7 @@ return (
     <CartContext.Provider value={{
         isOpen,
         products,
-        togleCart: toggleCart
+        togleCart
     }}>
         {children}
     </CartContext.Provider>
