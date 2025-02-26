@@ -9,8 +9,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "FSWFOOD",
-  description: "Projeto completo fullstack",
+  title: "FoodTotemHub",
+  description: "Projeto de hub para restaurantes",
 };
 
 export default function RootLayout({
