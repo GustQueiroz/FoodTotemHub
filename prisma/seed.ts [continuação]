@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 const { PrismaClient } = require("@prisma/client");
 
 const prismaClient = new PrismaClient();
@@ -179,6 +177,33 @@ const main = async () => {
       ],
     });
 
+    const kfcSandwichesCategory = await tx.menuCategory.create({
+      data: {
+        name: "Sanduíches",
+        restaurantId: kfc.id,
+      },
+    });
+
+    await tx.product.createMany({
+      data: [
+        {
+          name: "Kentucky Chicken",
+          description: "Sanduíche com peito de frango empanado, maionese, alface e tomate.",
+          price: 29.9,
+          imageUrl: "https://www.kfc.com.br/wp-content/uploads/2021/03/kentucky-chicken.png",
+          menuCategoryId: kfcSandwichesCategory.id,
+          restaurantId: kfc.id,
+          ingredients: [
+            "Pão brioche",
+            "Peito de frango empanado",
+            "Maionese",
+            "Alface",
+            "Tomate"
+          ],
+        },
+      ],
+    });
+
     // Gendai
     const gendai = await tx.restaurant.create({
       data: {
@@ -226,33 +251,6 @@ const main = async () => {
             "Salmão",
             "Cream cheese",
             "Empanamento crocante"
-          ],
-        },
-      ],
-    });
-
-    const temakiCategory = await tx.menuCategory.create({
-      data: {
-        name: "Temakis",
-        restaurantId: gendai.id,
-      },
-    });
-
-    await tx.product.createMany({
-      data: [
-        {
-          name: "Temaki Salmão",
-          description: "Temaki de salmão fresco com cream cheese e cebolinha.",
-          price: 26.9,
-          imageUrl: "https://www.gendai.com.br/wp-content/uploads/2021/03/temaki-salmao.png",
-          menuCategoryId: temakiCategory.id,
-          restaurantId: gendai.id,
-          ingredients: [
-            "Arroz japonês",
-            "Alga nori",
-            "Salmão fresco",
-            "Cream cheese",
-            "Cebolinha"
           ],
         },
       ],
@@ -311,33 +309,6 @@ const main = async () => {
         },
       ],
     });
-
-    const saladasCategory = await tx.menuCategory.create({
-      data: {
-        name: "Saladas",
-        restaurantId: spoleto.id,
-      },
-    });
-
-    await tx.product.createMany({
-      data: [
-        {
-          name: "Salada Caesar",
-          description: "Mix de folhas, frango grelhado, croutons, parmesão e molho caesar.",
-          price: 29.9,
-          imageUrl: "https://www.spoleto.com.br/wp-content/uploads/2021/03/salada-caesar.png",
-          menuCategoryId: saladasCategory.id,
-          restaurantId: spoleto.id,
-          ingredients: [
-            "Alface romana",
-            "Frango grelhado",
-            "Croutons",
-            "Queijo parmesão",
-            "Molho caesar"
-          ],
-        },
-      ],
-    });
   });
 };
 
@@ -347,4 +318,4 @@ main()
   })
   .finally(async () => {
     await prismaClient.$disconnect();
-  });
+  }); 
