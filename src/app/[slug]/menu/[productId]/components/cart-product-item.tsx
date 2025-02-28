@@ -13,7 +13,8 @@ interface CartProductItemProps {
 }
 
 const CartProductItem = ({ product }: CartProductItemProps) => {
-  const { decreaseProductQuantity } = useContext(CartContext);
+  const { decreaseProductQuantity, increaseProductQuantity } =
+    useContext(CartContext);
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-4">
@@ -41,6 +42,7 @@ const CartProductItem = ({ product }: CartProductItemProps) => {
               size="icon"
               variant="destructive"
               className="h-7 w-7 rounded-lg"
+              onClick={() => increaseProductQuantity(product.id)}
             >
               <ChevronRightIcon />
             </Button>
