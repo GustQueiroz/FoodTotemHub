@@ -1,7 +1,7 @@
-import { Sheet } from "lucide-react";
 import { useContext } from "react";
 
 import {
+  Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
