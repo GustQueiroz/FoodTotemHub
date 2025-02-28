@@ -29,7 +29,23 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const addProduct = (product: CartProduct) => {
-    setProducts((prev) => [...prev, product]);
+    const productIsAlreadyInCart = products.some(
+      (prevProducts) => prevProducts.id === product.id,
+    );
+    if (!productIsAlreadyInCart) {
+      return setProducts((prev) => [...prev, product]);
+    }
+    setProducts((prevProducts) => {
+      return prevProducts.map((prevProduct) => {
+        if (prevProduct.id === product.id) {
+          return {
+            ...prevProduct,
+            quantity: prevProduct.quantity + product.quantity,
+          };
+        }
+        return prevProduct;
+      });
+    });
   };
 
   const removeProduct = (productId: string) => {
