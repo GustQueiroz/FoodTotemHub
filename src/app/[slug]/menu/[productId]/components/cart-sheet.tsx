@@ -1,6 +1,7 @@
 import { useContext } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Sheet,
   SheetContent,
@@ -24,6 +25,13 @@ const CartSheet = () => {
               <CartProductItem key={product.id} product={product} />
             ))}
           </div>
+          <Card className="p-5">
+            <CardContent>
+              <div className="flex justify-between">
+                <p>Total</p>
+              </div>
+            </CardContent>
+          </Card>
           <Button className="w-full rounded-full">Finalizar pedido</Button>
         </div>
       </SheetContent>
