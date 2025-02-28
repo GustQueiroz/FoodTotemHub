@@ -8,11 +8,12 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { formatCurrency } from "@/helpers/format-currency";
 
 import { CartContext } from "../../context/cart";
 import CartProductItem from "./cart-product-item";
 const CartSheet = () => {
-  const { isOpen, toggleCart, products } = useContext(CartContext);
+  const { isOpen, toggleCart, products, total } = useContext(CartContext);
   return (
     <Sheet open={isOpen} onOpenChange={toggleCart}>
       <SheetContent side="right" className="w-[80%]">
@@ -25,10 +26,13 @@ const CartSheet = () => {
               <CartProductItem key={product.id} product={product} />
             ))}
           </div>
-          <Card className="p-5">
-            <CardContent>
+          <Card className="mb-6">
+            <CardContent className="p-5">
               <div className="flex justify-between">
-                <p>Total</p>
+                <p className="text-sm font-semibold text-muted-foreground">
+                  Total
+                </p>
+                <p className="text-sm font-semibold">{formatCurrency(total)}</p>
               </div>
             </CardContent>
           </Card>
