@@ -53,7 +53,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const removeProduct = (productId: string) => {
-    setProducts((prev) => prev.filter((product) => product.id !== productId));
+    setProducts((prevProducts) =>
+      prevProducts.filter((prevProducts) => prevProducts.id !== productId),
+    );
   };
 
   const toggleCart = () => {
