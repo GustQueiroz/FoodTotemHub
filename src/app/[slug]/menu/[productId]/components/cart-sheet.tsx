@@ -14,7 +14,7 @@ const CartSheet = () => {
   const { isOpen, toggleCart, products } = useContext(CartContext);
   return (
     <Sheet open={isOpen} onOpenChange={toggleCart}>
-      <SheetContent side="bottom">
+      <SheetContent side="right">
         <SheetHeader>
           <SheetTitle>Sacola</SheetTitle>
           <SheetDescription>Seus itens selecionados</SheetDescription>
