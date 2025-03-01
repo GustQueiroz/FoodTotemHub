@@ -1,9 +1,9 @@
 "use server";
 
-
 import { ConsumptionMethod } from "@prisma/client";
 
 import { db } from "@/lib/prisma";
+
 import { formatCPF } from "../helpers/cpf";
 
 interface CreateOrderInput {
@@ -37,7 +37,7 @@ export const createOrder = async (input: CreateOrderInput) => {
     productId: product.id,
     quantity: product.quantity,
     price: productsWithPrice.find((p) => p.id === product.id)!.price,
-  })),
+  }));
 
   await db.order.create({
     data: {
@@ -51,10 +51,9 @@ export const createOrder = async (input: CreateOrderInput) => {
         },
       },
       total: productsWithPriceAndQuantities.reduce(
-        (acc, product) => acc + product.price * product.quantity, 
-        0
+        (acc, product) => acc + product.price * product.quantity,
+        0,
       ),
-      consumptionMethod: input.consumptionMethod,
       restaurantId: restaurant.id,
     },
   });
