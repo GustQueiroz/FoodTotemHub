@@ -4,9 +4,9 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
 import { SheetProvider } from "@/components/providers/sheet-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 import { CartProvider } from "./[slug]/menu/context/cart";
-
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -28,8 +28,9 @@ export default function RootLayout({
       <SheetProvider>
         <CartProvider>
           {children}
-        </CartProvider>
-      </SheetProvider>
+          </CartProvider>
+        </SheetProvider>
+        <Toaster />
       </body>
     </html>
   );

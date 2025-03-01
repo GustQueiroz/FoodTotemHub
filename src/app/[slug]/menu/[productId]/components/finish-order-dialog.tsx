@@ -6,6 +6,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { PatternFormat } from "react-number-format";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -79,6 +80,8 @@ const FinishOrderDialog = ({ open, onOpenChange }: FinishOrderDialogProps) => {
         products,
         slug,
       });
+      onOpenChange(false);
+      toast.success("Pedido finalizado com sucesso");
     } catch (error) {
       console.error(error);
     }
