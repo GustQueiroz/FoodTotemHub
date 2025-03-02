@@ -1,3 +1,5 @@
+import CpfForm from "./components/cpf-form";
+
 interface OrdersPageProps {
   searchParams: Promise<{ cpf: string }>;
 }
@@ -5,7 +7,7 @@ interface OrdersPageProps {
 const OrdersPage = async ({ searchParams }: OrdersPageProps) => {
   const { cpf } = await searchParams;
   if (!cpf) {
-    return <h1>CPF não encontrado</h1>;
+    return <CpfForm />;
   }
   return <h1>Orders</h1>;
 };
