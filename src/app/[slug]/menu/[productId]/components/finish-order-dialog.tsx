@@ -2,8 +2,9 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ConsumptionMethod } from "@prisma/client";
+import { Loader2Icon } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { PatternFormat } from "react-number-format";
 import { toast } from "sonner";
@@ -58,6 +59,7 @@ interface FinishOrderDialogProps {
 const FinishOrderDialog = ({ open, onOpenChange }: FinishOrderDialogProps) => {
   const { slug } = useParams<{ slug: string }>();
   const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
   const { products } = useContext(CartContext);
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -73,15 +75,17 @@ const FinishOrderDialog = ({ open, onOpenChange }: FinishOrderDialogProps) => {
       const consumptionMethod = searchParams.get(
         "consumptionMethod",
       ) as ConsumptionMethod;
+      startTransition(async () => {
       await createOrder({
         consumptionMethod,
         customerName: data.name,
         customerCPF: data.cpf,
         products,
         slug,
+        });
+        onOpenChange(false);
+        toast.success("Pedido finalizado com sucesso");
       });
-      onOpenChange(false);
-      toast.success("Pedido finalizado com sucesso");
     } catch (error) {
       console.error(error);
     }
@@ -135,7 +139,9 @@ const FinishOrderDialog = ({ open, onOpenChange }: FinishOrderDialogProps) => {
                   type="submit"
                   variant="destructive"
                   className="rounded-full"
+                  disabled={isPending}
                 >
+                  {isPending && <Loader2Icon className="animate-spin" />}
                   Finalizar
                 </Button>
                 <DrawerClose>
