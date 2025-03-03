@@ -66,7 +66,10 @@ const OrderList = ({ orders }: OrderListProps) => {
                             <div className="relative h-5 w-5">
                                 <Image src={order.restaurant.avatarImageUrl} alt={order.restaurant.name} fill className="rounded-sm" />
                             </div>
-                            <p className="text-sm font-semibold">{order.restaurant.name}</p>
+                            <div className="gap-1">
+                                <p className="text-sm font-semibold">{order.restaurant.name}</p>
+                                <p className="text-xs text-gray-500">{order.createdAt.toLocaleDateString("pt-BR")}</p>
+                            </div>
                         </div>
                         <Separator />
                         {order.orderProducts.map((orderProduct) => (

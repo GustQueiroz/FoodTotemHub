@@ -1,6 +1,6 @@
 import { db } from "@/lib/prisma";
 
-import { validateCPF } from "../menu/helpers/cpf";
+import { formatCPF, validateCPF } from "../menu/helpers/cpf";
 import CpfForm from "./components/cpf-form";
 import OrderList from "./components/order-list";
 interface OrdersPageProps {
@@ -16,8 +16,11 @@ const OrdersPage = async ({ searchParams }: OrdersPageProps) => {
     return <CpfForm />;
   }
   const orders = await db.order.findMany({
+    orderBy: {
+      createdAt: "desc"
+    },
     where: {
-      customerCPF: cpf
+      customerCPF: formatCPF(cpf)
     },
     include: {
       restaurant: {
