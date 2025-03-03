@@ -1,13 +1,11 @@
 
 import { Prisma } from "@prisma/client";
-import { ChevronLeftIcon, ScrollText } from "lucide-react";
+import { ScrollText } from "lucide-react";
 import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatCurrency } from "@/helpers/format-currency";
-
 interface OrderListProps {
     orders: Prisma.OrderGetPayload<{
         include: {
@@ -41,12 +39,10 @@ const getStatusLabel = (status: string) => {
     }
 }
 
+
 const OrderList = ({ orders }: OrderListProps) => {
     return ( 
-        <div className="space-y-6 p-6">
-            <Button size="icon" variant="secondary" className="rounded-full">
-                <ChevronLeftIcon className="w-4 h-4" />
-            </Button>
+        <div >
             <div className="flex items-center gap-3">
                 <ScrollText className="w-4 h-4" />
                 <h2 className="text-lg font-semibold">Meus Pedidos</h2>
