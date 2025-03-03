@@ -1,12 +1,12 @@
 "use server";
 
 import { ConsumptionMethod } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { db } from "@/lib/prisma";
 
 import { formatCPF } from "../helpers/cpf";
-
 interface CreateOrderInput {
   customerName: string;
   customerCPF: string;
@@ -58,5 +58,6 @@ export const createOrder = async (input: CreateOrderInput) => {
       restaurantId: restaurant.id,
     },
   });
+  revalidatePath(`/${input.slug}/menu`);
   redirect(`/${input.slug}/orders?cpf=${formatCPF(input.customerCPF)}`);
 };
