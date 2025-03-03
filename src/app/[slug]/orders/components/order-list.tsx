@@ -1,12 +1,16 @@
 
 import { Prisma } from "@prisma/client";
+import { ChevronLeftIcon } from "lucide-react";
 import { ScrollText } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatCurrency } from "@/helpers/format-currency";
 interface OrderListProps {
+
     orders: Prisma.OrderGetPayload<{
         include: {
             restaurant: {
@@ -41,8 +45,17 @@ const getStatusLabel = (status: string) => {
 
 
 const OrderList = ({ orders }: OrderListProps) => {
+
+const router = useRouter();
+const handleBackClick = () => {
+    router.back();
+};
+
     return ( 
-        <div >
+        <div className="p-5">
+                <Button size="icon" variant="secondary" className="rounded-full" onClick={handleBackClick}>
+                    <ChevronLeftIcon className="w-4 h-4"/>
+                </Button>
             <div className="flex items-center gap-3">
                 <ScrollText className="w-4 h-4" />
                 <h2 className="text-lg font-semibold">Meus Pedidos</h2>

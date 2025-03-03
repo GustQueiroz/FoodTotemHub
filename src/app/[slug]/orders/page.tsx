@@ -1,6 +1,4 @@
-import { ChevronLeftIcon } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { db } from "@/lib/prisma";
 
 import { formatCPF, validateCPF } from "../menu/helpers/cpf";
@@ -41,11 +39,10 @@ const OrdersPage = async ({ searchParams }: OrdersPageProps) => {
     }
   })
 
-  return <div className="space-y-6 p-6">  
-    <Button size="icon" variant="secondary" className="rounded-full">
-    <ChevronLeftIcon className="w-4 h-4"/></Button>
+  return 
+
     <OrderList orders={orders} />;
-  </div>
+  
 
 };
 
