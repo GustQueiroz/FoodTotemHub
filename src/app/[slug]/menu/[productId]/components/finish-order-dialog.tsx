@@ -75,14 +75,19 @@ const FinishOrderDialog = ({ open, onOpenChange }: FinishOrderDialogProps) => {
       const consumptionMethod = searchParams.get(
         "consumptionMethod",
       ) as ConsumptionMethod;
+      
       startTransition(async () => {
-      await createOrder({
-        consumptionMethod,
-        customerName: data.name,
-        customerCPF: data.cpf,
-        products,
-        slug,
+        // Limpa o CPF antes de enviar
+        const cleanCPF = data.cpf.replace(/\D/g, "");
+        
+        await createOrder({
+          consumptionMethod,
+          customerName: data.name,
+          customerCPF: cleanCPF, // Enviando CPF limpo
+          products,
+          slug,
         });
+        
         onOpenChange(false);
         toast.success("Pedido finalizado com sucesso");
       });

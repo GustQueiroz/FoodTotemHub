@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-import { formatCPF, validateCPF } from "../../menu/helpers/cpf";
+import { validateCPF } from "../../menu/helpers/cpf";
 const FormSchema = z.object({
   cpf: z
     .string()
@@ -51,7 +51,8 @@ const router = useRouter()
 const pathname = usePathname()
 
 const onSubmit = (data: FormSchema) => {
-  router.replace(`${pathname}?cpf=${formatCPF(data.cpf)}`)
+  const cleanCPF = data.cpf.replace(/\D/g, "");
+  router.replace(`${pathname}?cpf=${cleanCPF}`);
 }
 const handleCancel = () => {
   router.back()

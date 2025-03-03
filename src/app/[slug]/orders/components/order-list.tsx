@@ -1,4 +1,4 @@
-
+"use client"
 
 import { Prisma } from "@prisma/client";
 import { ChevronLeftIcon } from "lucide-react";
@@ -47,10 +47,10 @@ const getStatusLabel = (status: string) => {
 
 const OrderList = ({ orders }: OrderListProps) => {
 
-const router = useRouter();
-const handleBackClick = () => {
-    router.back();
-};
+    const router = useRouter();
+    const handleBackClick = () => {
+        router.back();
+    };
 
     return ( 
         <div className="p-5">

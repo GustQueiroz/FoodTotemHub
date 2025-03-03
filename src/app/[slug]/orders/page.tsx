@@ -1,4 +1,3 @@
-
 import { db } from "@/lib/prisma";
 
 import { formatCPF, validateCPF } from "../menu/helpers/cpf";
@@ -11,18 +10,24 @@ interface OrdersPageProps {
 
 const OrdersPage = async ({ searchParams }: OrdersPageProps) => {
   const { cpf } = await searchParams;
+  
   if (!cpf) {
     return <CpfForm />;
   }
-  if (!validateCPF(cpf)) {
+
+  // Remove a formatação para validar
+  const cleanCPF = cpf.replace(/\D/g, "");
+  
+  if (!validateCPF(cleanCPF)) {
     return <CpfForm />;
   }
+
   const orders = await db.order.findMany({
     orderBy: {
       createdAt: "desc"
     },
     where: {
-      customerCPF: formatCPF(cpf)
+      customerCPF: formatCPF(cleanCPF)
     },
     include: {
       restaurant: {
@@ -39,11 +44,7 @@ const OrdersPage = async ({ searchParams }: OrdersPageProps) => {
     }
   })
 
-  return 
-
-    <OrderList orders={orders} />;
-  
-
+  return <OrderList orders={orders} />;
 };
 
 export default OrdersPage;
