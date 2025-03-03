@@ -1,5 +1,8 @@
-import CpfForm from "./components/cpf-form";
+import { db } from "@/lib/prisma";
 
+import { validateCPF } from "../menu/helpers/cpf";
+import CpfForm from "./components/cpf-form";
+import OrderList from "./components/order-list";
 interface OrdersPageProps {
   searchParams: Promise<{ cpf: string }>;
 }
@@ -9,7 +12,15 @@ const OrdersPage = async ({ searchParams }: OrdersPageProps) => {
   if (!cpf) {
     return <CpfForm />;
   }
-  return <h1>Orders</h1>;
+  if (!validateCPF(cpf)) {
+    return <CpfForm />;
+  }
+  const orders = await db.order.findMany({
+    where: {
+      customerCPF: cpf
+    }
+  })
+  return <OrderList orders={orders} />;
 };
 
 export default OrdersPage;
