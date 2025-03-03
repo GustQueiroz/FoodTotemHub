@@ -28,7 +28,7 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
   const [selectedCategory, setSelectedCategory] = useState<MenuCategoriesWithProducts>(
     restaurant.menuCategories[0],
   );
-    const { products, toggleCart } = useContext(CartContext);
+    const { products, toggleCart, totalQuantity } = useContext(CartContext);
 
   const handleCategoryClick = (category: MenuCategoriesWithProducts) => {
     setSelectedCategory(category);
@@ -79,7 +79,7 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
           <div>
             <p className="text-xs text-muted-foreground">Total dos Pedidos</p>
             <p className="text-sm font-semibold">{formatCurrency(products.reduce((acc, product) => acc + product.price * product.quantity, 0))} 
-              <span className="text-xs font-normal text-muted-foreground">/ {products.length > 1 ? `${products.length} itens` : `${products.length} item`}</span></p>
+              <span className="text-xs font-normal text-muted-foreground">/ {totalQuantity > 1 ? `${totalQuantity} itens` : `${totalQuantity} item`}</span></p>
           </div>
           <div>
             <Button onClick={toggleCart}>
