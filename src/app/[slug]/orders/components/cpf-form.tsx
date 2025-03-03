@@ -59,11 +59,11 @@ const handleCancel = () => {
 
   return (
     <Drawer open>
-    <DrawerTrigger>Open</DrawerTrigger>
+    <DrawerTrigger></DrawerTrigger>
     <DrawerContent>
       <DrawerHeader>
-        <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-        <DrawerDescription>This action cannot be undone.</DrawerDescription>
+        <DrawerTitle>Visualizar pedidos</DrawerTitle>
+        <DrawerDescription>Insira seu CPF abaixo para visualizar seus pedidos.</DrawerDescription>
       </DrawerHeader>
       <div className="px-5">
       <Form {...form}>
