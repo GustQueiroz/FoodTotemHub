@@ -26,6 +26,21 @@ interface OrderListProps {
     }>[];
 }
 
+const getStatusLabel = (status: string) => {
+    switch (status) {
+        case "CONFIRMED":
+            return "Finalizado";
+        case "PENDING":
+            return "Pendente";
+        case "IN_PREPARATION":
+            return "Em preparo";
+        case "CANCELLED":
+            return "Cancelado";
+        default:
+            return status;
+    }
+}
+
 const OrderList = ({ orders }: OrderListProps) => {
     return ( 
         <div className="space-y-6 p-6">
@@ -39,8 +54,13 @@ const OrderList = ({ orders }: OrderListProps) => {
             {orders.map((order) => (
                 <Card key={order.id}>
                     <CardContent className="p-5 space-y-4">
-                        <div className="w-fit rounded-full px-2 py-1 text-xs font-semibold bg-gray-500 text-white">
-                            <span className="text-white">Em preparo</span>
+                        <div className={`w-fit rounded-full px-2 py-1 text-xs font-semibold  text-white
+                            ${order.status === "PENDING" && "bg-yellow-500"}
+                            ${order.status === "IN_PREPARATION" && "bg-green-300"}
+                            ${order.status === "CONFIRMED" && "bg-green-600"}
+                            ${order.status === "CANCELLED" && "bg-red-400"}
+                            `}>
+                            <span className="text-white">{getStatusLabel(order.status)}</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <div className="relative h-5 w-5">
@@ -58,7 +78,7 @@ const OrderList = ({ orders }: OrderListProps) => {
                             </div>
                         ))}
                         <Separator />
-                        <p className="text-sm font-medium">{formatCurrency(order.total)}</p>
+                        <p className="text-sm font-semibold">{formatCurrency(order.total)}</p>
                     </CardContent>
                 </Card>
             ))}
