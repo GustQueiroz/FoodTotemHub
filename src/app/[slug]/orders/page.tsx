@@ -18,8 +18,22 @@ const OrdersPage = async ({ searchParams }: OrdersPageProps) => {
   const orders = await db.order.findMany({
     where: {
       customerCPF: cpf
+    },
+    include: {
+      restaurant: {
+        select: {
+          name: true,
+          avatarImageUrl: true
+        }
+      },
+      orderProducts: {
+        include: {
+          product: true
+        }
+      }
     }
   })
+
   return <OrderList orders={orders} />;
 };
 
