@@ -4,7 +4,7 @@ import { Prisma } from "@prisma/client";
 import { ChevronLeftIcon } from "lucide-react";
 import { ScrollText } from "lucide-react";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -47,9 +47,10 @@ const getStatusLabel = (status: string) => {
 
 const OrderList = ({ orders }: OrderListProps) => {
 const { slug } = useParams<{ slug: string }>();
+const searchParams = useSearchParams();
 const router = useRouter();
 const handleBackClick = () => {
-    router.push(`/${slug}/menu`);
+    router.push(`/${slug}/menu/?consumptionMethod=${searchParams.get("consumptionMethod")}`);
 };
 
     return ( 
