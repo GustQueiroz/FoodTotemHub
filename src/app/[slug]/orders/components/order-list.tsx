@@ -56,7 +56,7 @@ const OrderList = ({ orders }: OrderListProps) => {
                     <CardContent className="p-5 space-y-4">
                         <div className={`w-fit rounded-full px-2 py-1 text-xs font-semibold  text-white
                             ${order.status === "PENDING" && "bg-yellow-500"}
-                            ${order.status === "IN_PREPARATION" && "bg-green-300"}
+                            ${order.status === "IN_PREPARATION" && "bg-blue-500"}
                             ${order.status === "CONFIRMED" && "bg-green-600"}
                             ${order.status === "CANCELLED" && "bg-red-400"}
                             `}>
